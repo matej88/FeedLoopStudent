@@ -1,0 +1,89 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="se.exjobb.feedloopstudent.fragments.CourseOverviewFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="#fff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <TextView
+
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Course Name"
+            android:id="@+id/course_overview_name"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            />
+
+
+        <TextView
+
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Course Code"
+            android:id="@+id/course_overview_code"
+            android:paddingTop="4dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ededed"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:id="@+id/onoff_layout">
+
+            <TextView
+                android:text="Offline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="#fff"
+                android:id="@+id/course_overview_status"
+
+
+                />
+
+
+
+
+        </RelativeLayout>
+        <android.support.design.widget.TabLayout
+
+            android:id="@+id/tabLayout_single_course"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:tabMode="scrollable"
+
+            app:tabIndicatorHeight="4dp"
+
+
+            />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_single_course"
+            android:layout_width="match_parent"
+            android:layout_height="412dp"
+            />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

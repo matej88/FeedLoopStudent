@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    >
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:background="@drawable/list_shadow_bottom"
+            android:theme="@style/AppThemeListStyle">
+
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:srcCompat="@mipmap/ic_course_quiz"
+                android:layout_centerVertical="true"
+
+                android:id="@+id/imageView2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Survey Name"
+                android:textSize="14sp"
+                android:id="@+id/list_survey_name"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/imageView2"
+                android:layout_centerVertical="true"
+                android:paddingLeft="16dp"
+                />
+
+
+
+
+        </RelativeLayout>
+
+
+</LinearLayout>

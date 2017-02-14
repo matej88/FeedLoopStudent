@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/add_answer_survey_rr">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Question: "
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:id="@+id/add_answer_survey_tv"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The question"
+            android:textSize="12sp"
+            android:id="@+id/question_text"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/add_answer_survey_tv"
+
+            />
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Answer: "
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:id="@+id/add_answer_sur_tv"
+        android:layout_below="@+id/add_answer_survey_rr"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#eee"
+        android:hint="Your answer"
+        android:id="@+id/add_sur_answer_et"
+        android:layout_below="@+id/add_answer_sur_tv"
+        android:layout_marginTop="8dp"
+        android:textSize="12dp"
+        android:inputType="text|textMultiLine|textImeMultiLine" />
+
+</RelativeLayout>

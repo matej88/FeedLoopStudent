@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@drawable/list_shadow_bottom"
+        android:theme="@style/AppThemeListStyle">
+
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcCompat="@mipmap/ic_course_feedback"
+            android:layout_centerVertical="true"
+
+            android:id="@+id/imageView4" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis, mauris sed gravida laoreet, sapien massa consequat enim, id dignissima"
+            android:textSize="11sp"
+            android:id="@+id/feedback_text"
+            android:layout_toRightOf="@id/imageView4"
+            android:paddingLeft="16dp"
+            />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/feedback_timestamp"
+                android:layout_toRightOf="@id/imageView4"
+                android:text="Timestamp"
+                android:textSize="10dp"
+                android:layout_below="@id/feedback_text"
+                android:layout_marginLeft="16dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Replied"
+                android:id="@+id/feedback_replied"
+                android:layout_below="@id/feedback_text"
+                android:layout_toRightOf="@+id/feedback_timestamp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="40dp"
+                android:textSize="10dp"
+                />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:id="@+id/feedback_rating"
+            android:layout_toEndOf="@+id/feedback_replied"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="6dp"
+            android:textSize="18dp"
+            android:layout_below="@id/feedback_text"
+
+
+         />
+
+    </RelativeLayout>
+</LinearLayout>

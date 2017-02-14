@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+    tools:context="se.exjobb.feedloopstudent.fragments.SurveyOverviewFragment"
+    >
+
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/survey_overview_name"
+    android:text="Survey name"
+    android:textSize="18dp"
+    android:textStyle="bold"
+    android:padding="16dp"/>
+
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/survey_overview_recyclerview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    />
+
+
+</LinearLayout>

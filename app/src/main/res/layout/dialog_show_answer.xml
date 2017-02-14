@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/show_answ_rr">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Feedback: "
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:id="@+id/show_answer_feedback_tv"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis, mauris sed gravida laoreet, sapien massa consequat enim, id dignissima"
+            android:textSize="12sp"
+            android:id="@+id/show_feedback_text"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/show_answer_feedback_tv"
+
+            />
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Answer: "
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:id="@+id/show_answer_answ_tv"
+        android:layout_below="@+id/show_answ_rr"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#efefef"
+        android:padding="8dp"
+        android:id="@+id/show_answ_answer_et"
+        android:layout_below="@+id/show_answer_answ_tv"
+        android:layout_marginTop="8dp"
+        android:textSize="12dp"
+         />
+
+</RelativeLayout>
