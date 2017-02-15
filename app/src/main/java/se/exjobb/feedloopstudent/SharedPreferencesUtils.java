@@ -94,4 +94,15 @@ public class SharedPreferencesUtils {
         editor.putString(Constants.SESSION_KEY, sessionKey);
         editor.commit();
     }
+    public static boolean getIsOnline (Context context){
+        SharedPreferences prefs = context.getSharedPreferences(Constants.PREFS, Activity.MODE_PRIVATE);
+        return prefs.getBoolean("Constants.IS_ONLINE", false);
+    }
+
+    public static void setIsOnline(Context context, boolean b){
+        SharedPreferences prefs = context.getSharedPreferences(Constants.PREFS, Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("Constants.IS_ONLINE", false);
+        editor.commit();
+    }
 }

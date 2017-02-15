@@ -34,6 +34,7 @@ import java.util.Date;
 
 import se.exjobb.feedloopstudent.R;
 import se.exjobb.feedloopstudent.SharedPreferencesUtils;
+import se.exjobb.feedloopstudent.models.Course;
 import se.exjobb.feedloopstudent.models.Feedback;
 import se.exjobb.feedloopstudent.models.Session;
 
@@ -50,7 +51,9 @@ public class FeedbackListTabFragment extends Fragment {
     private String mCourseKey;
     private DatabaseReference mDataRef;
     private DatabaseReference mFeedbacksRef;
+    private DatabaseReference courseRef;
     private RecyclerView mRecyclerView;
+    private boolean isOnline = false;
     private Query feedbacksForCurrentCourse;
     private String sessionKey;
 
@@ -85,6 +88,8 @@ public class FeedbackListTabFragment extends Fragment {
         sessionQuery();
 
 
+
+
     }
 
     public void sessionQuery(){
@@ -100,7 +105,7 @@ public class FeedbackListTabFragment extends Fragment {
                     sessionKey = ds.getRef().getKey();
                 }
 
-                Toast.makeText(getContext(), "Key " + sessionKey, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -188,8 +193,6 @@ public class FeedbackListTabFragment extends Fragment {
         final CheckBox ch3 = (CheckBox) view.findViewById(R.id.checkBox3);
         final CheckBox ch4 = (CheckBox) view.findViewById(R.id.checkBox4);
         final CheckBox ch5 = (CheckBox) view.findViewById(R.id.checkBox5);
-        int rating = 0;
-
 
         builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
             @Override
@@ -207,7 +210,7 @@ public class FeedbackListTabFragment extends Fragment {
                 }if(ch5.isChecked()){
                     rating = 5;
                 }
-                Toast.makeText(getContext(), "Rating" + rating, Toast.LENGTH_SHORT).show();
+
                 String f = feedback.getText().toString();
                 long unixTime = System.currentTimeMillis() / 1000L;
                 Feedback newFeed = new Feedback(f,rating,unixTime, sessionKey, mCourseKey, false);

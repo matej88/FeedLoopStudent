@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +46,7 @@ public class CourseListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private String mStudentUid;
     private boolean maybe;
+    String courseKey;
     private DatabaseReference mDataRef;
     public CourseListFragment() {
         // Required empty public constructor
@@ -106,14 +108,6 @@ public class CourseListFragment extends Fragment {
 
     }
 
-    public void printKeys(ArrayList<String> keys){
-
-        Toast.makeText(getContext(), "Key " + keys.get(0), Toast.LENGTH_SHORT).show();
-    }
-    public void printStudentName(String name){
-        Toast.makeText(getContext(), "St name" + name, Toast.LENGTH_SHORT).show();
-    }
-
 
     @Override
     public void onAttach(Context context) {
@@ -132,7 +126,25 @@ public class CourseListFragment extends Fragment {
         mClickListener = null;
     }
 
+    @SuppressLint("InflateParams")
+    public void showDeleteCourseDialog(final Course course){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_delete_course, null);
 
+
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mClickListener.onDeleteCourse(course);
+
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, null);
+
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
     @SuppressLint("InflateParams")
     public void showAddCourseDialog(final Course course){
@@ -154,7 +166,9 @@ public class CourseListFragment extends Fragment {
                         long yesNo = dataSnapshot.getChildrenCount();
 
                         if (yesNo > 0){
-                            mClickListener.onAddCourse(coureToUpperCase, mStudentUid);
+                            addCourse(coureToUpperCase);
+
+
                         }else{
                             Toast.makeText(getContext(), "Course " + coureToUpperCase + " not found!" , Toast.LENGTH_LONG).show();
                         }
@@ -177,10 +191,47 @@ public class CourseListFragment extends Fragment {
         dialog.show();
     }
 
+    public void addCourse(String courseCode){
+        final String cc = courseCode;
+        DatabaseReference getCourseKey = mDataRef.child("courses");
+        Query query = getCourseKey.orderByChild("code").equalTo(courseCode);
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+
+                courseKey = dataSnapshot.getKey();
+                mClickListener.onAddCourse(cc, mStudentUid, courseKey);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
 
     public interface OnCourseSelectedListener {
         void onCourseSelected(Course c);
-        void onAddCourse(String courseCode, String studentUid);
+        void onAddCourse(String courseCode, String studentUid, String courseKey);
+        void onDeleteCourse(Course c);
     }
 
 }

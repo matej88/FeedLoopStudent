@@ -15,6 +15,7 @@ public class Constants {
     public static final String SESSION_KEY = "SESSION_KEY";
     public static final String SURVEY_NAME = "SURVEY_NAME";
     public static final boolean IS_TEACHER = false;
+    public static final boolean IS_ONLINE = false;
 
 
 }

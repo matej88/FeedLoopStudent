@@ -1,10 +1,12 @@
 package se.exjobb.feedloopstudent.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +38,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     private ArrayList<Course> mCourses = new ArrayList<>();
     private String mStudentUid;
     private ArrayList<String> courseKeys = new ArrayList<>();
-
+    Context context;
 
     public CourseAdapter(CourseListFragment courseListFragment,
                          CourseListFragment.OnCourseSelectedListener listener,
@@ -49,7 +51,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         mCoursesRef = mDataRef.child("courses");
         mStudentRef = mDataRef.child("users").child("students");
         mStudentUid = studentUid;
-
         getStudentCourses();
 
     }
@@ -58,7 +59,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     class CoursesChildEventListener implements ChildEventListener{
 
         private void add(DataSnapshot dataSnapshot){
-
 
             Course course = dataSnapshot.getValue(Course.class);
             course.setKey(dataSnapshot.getKey());
@@ -157,8 +157,16 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(CourseAdapter.ViewHolder holder, int position) {
+        final int pos = position;
         holder.mCourseNameTextView.setText(mCourses.get(position).getName());
         holder.mCourseCodeTextView.setText(mCourses.get(position).getCode());
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                mCourseListFragment.showDeleteCourseDialog(mCourses.get(pos));
+                return true;
+            }
+        });
 
 
     }
@@ -168,7 +176,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         return mCourses.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mCourseNameTextView;
         private TextView mCourseCodeTextView;
 
@@ -178,6 +186,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             mCourseCodeTextView = (TextView) itemView.findViewById(R.id.card_course_code);
 
             itemView.setOnClickListener(this);
+
         }
 
         @Override
@@ -187,5 +196,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             Course course = mCourses.get(getAdapterPosition());
             mCourseSelectedListener.onCourseSelected(course);
         }
+
     }
 }

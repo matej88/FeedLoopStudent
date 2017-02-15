@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import se.exjobb.feedloopstudent.adapters.CourseAdapter;
 import se.exjobb.feedloopstudent.fragments.CourseListFragment;
 import se.exjobb.feedloopstudent.fragments.CourseOverviewFragment;
 import se.exjobb.feedloopstudent.fragments.FeedbackListTabFragment;
@@ -90,6 +91,7 @@ SurveyOverviewFragment.OnSurveyQuestionClickedListener{
                 if (user != null) {
                     final String studentUid = user.getUid();
                     SharedPreferencesUtils.setIsTeacher(getApplicationContext(), false);
+                    SharedPreferencesUtils.setCurrentStudentUid(getApplicationContext(), studentUid);
                     mDataRef.child("users/students/" + user.getUid() + "/name").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -157,7 +159,7 @@ SurveyOverviewFragment.OnSurveyQuestionClickedListener{
     // Check and connect user to a database when Login pressed in LoginFragment
     @Override
     public void onLogin(String email, String passwrod) {
-        Toast.makeText(this, "Clicked login", Toast.LENGTH_SHORT).show();
+
         mAuth.signInWithEmailAndPassword(email, passwrod)
                 .addOnCompleteListener(mOnCompleteListener);
     }
@@ -201,8 +203,8 @@ SurveyOverviewFragment.OnSurveyQuestionClickedListener{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_signout) {
+            onLogout();
         }
 
         return super.onOptionsItemSelected(item);
@@ -242,14 +244,30 @@ SurveyOverviewFragment.OnSurveyQuestionClickedListener{
     }
 
     @Override
-    public void onAddCourse(String courseCode, String studentUid) {
-        String courseKey = SharedPreferencesUtils.getCurrentCourseKey(getApplicationContext());
+    public void onAddCourse(String courseCode, String studentUid, String courseKey) {
 
         DatabaseReference studentSubscribeToCourse = mDataRef.child("users").child("students").child(studentUid).child("subscribedto");
         studentSubscribeToCourse.child(courseCode).setValue(true);
         DatabaseReference courseRef = mDataRef.child("courses").child(courseKey).child("subscribers");
         courseRef.child(studentUid).setValue(true);
         Toast.makeText(this, "Subscribed to" + courseCode, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onDeleteCourse(Course c) {
+        String courseCode = c.getCode();
+        String studentUid = SharedPreferencesUtils.getCurrentStudentUid(getApplicationContext());
+        String courseKey = SharedPreferencesUtils.getCurrentCourseKey(getApplicationContext());
+
+        DatabaseReference studentSubscribeToCourse = mDataRef.child("users").child("students").child(studentUid).child("subscribedto");
+        studentSubscribeToCourse.child(courseCode).removeValue();
+
+        DatabaseReference courseRef = mDataRef.child("courses").child(courseKey).child("subscribers");
+        courseRef.child(studentUid).removeValue();
+
+        Toast.makeText(this, "Unsubscribed from " + courseCode, Toast.LENGTH_SHORT).show();
+
 
     }
 
